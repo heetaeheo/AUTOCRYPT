@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/HeeTae/AndroidStudioProjects/autocrypt/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/HeeTae/AndroidStudioProjects/autocrypt/app/src/main/res/layout/viewholder_center.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/HeeTae/AndroidStudioProjects/autocrypt/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/HeeTae/AndroidStudioProjects/autocrypt/app/src/main/res/layout/fragment_data.xml" value="0.1" />
+        <entry key="..\:/Users/HeeTae/AndroidStudioProjects/autocrypt/app/src/main/res/layout/item_center.xml" value="0.1" />
+        <entry key="..\:/Users/HeeTae/AndroidStudioProjects/autocrypt/app/src/main/res/layout/viewholder_center.xml" value="0.4648148148148148" />
       </map>
     </option>
   </component>

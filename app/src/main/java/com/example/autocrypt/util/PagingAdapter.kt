@@ -20,7 +20,14 @@ class PagingAdapter:
 
         fun bind(item: CenterDataResponse){
             with(binding){
-                binding.entity = item
+                binding.id.text = item.id.toString()
+                binding.centerName.text = item.centerName.toString()
+                binding.address.text = item.address.toString()
+                binding.lat.text = item.lat.toString()
+                binding.lng.text = item.lng.toString()
+                binding.updatedAt.text = item.updatedAt.toString()
+                binding.facilityName.text = item.facilityName.toString()
+
                 binding.executePendingBindings()
             }
         }

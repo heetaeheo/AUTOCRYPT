@@ -12,6 +12,7 @@ import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.example.autocrypt.data.Key
 import com.example.autocrypt.data.response.CenterDataResponse
+import com.example.autocrypt.databinding.ActivityMainBinding
 import com.example.autocrypt.util.PagingAdapter
 import com.example.autocrypt.viewModel.MainViewModel
 import com.naver.maps.geometry.LatLng
@@ -33,13 +34,14 @@ import kotlinx.coroutines.runBlocking
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
-  //  private lateinit var binding : ActivityMainBinding
+    private lateinit var binding : ActivityMainBinding
     private lateinit var naverMap : NaverMap
     private lateinit var locationSource: FusedLocationSource
     private val viewModel : MainViewModel by viewModels()
     private var markets = mutableListOf<Marker>()
     private lateinit var uiScope : CoroutineScope
     private val adapter = PagingAdapter()
+    var fragment = DataFragment
 
     companion object{
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
@@ -62,15 +64,20 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
-       // setContentView(binding.root)
+       binding = ActivityMainBinding.inflate(layoutInflater)
+        //setContentView(R.layout.activity_main)
+       setContentView(binding.root)
 
         val mapFragment: MapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(this)
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         uiScope = CoroutineScope(Dispatchers.Main)
+
+        binding.moveFragment.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,fragment.newInstance()).commit()
+        }
 
     }
 
@@ -102,7 +109,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         Toast.makeText(this, "맵 초기화 완료", Toast.LENGTH_LONG).show()
 
-        observer()
+        //observer()
         updateMarker()
 
     }

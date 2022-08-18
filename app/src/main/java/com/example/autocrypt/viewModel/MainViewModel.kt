@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
 
     private var centerList: MutableList<CenterDataResponse> = mutableListOf()
 
-    val dbList: LiveData<List<CenterData>> = roomRepository.allData.asLiveData()
+    val dbList: LiveData<List<CenterData>> = roomRepository
 
 
     /*   fun getAllRecords() : Flow<PagingData<CenterData>>{
@@ -44,7 +44,7 @@ class MainViewModel @Inject constructor(
       }
 
 
-    suspend fun getCenterList(apiKey: String, page: Int) = runBlocking {
+   /* suspend fun getCenterList(apiKey: String, page: Int) = runBlocking {
         val list = centerRepositoryImpl.getCenterList(apiKey, page)?.data
         list?.let { centerResult ->
             centerResult.forEach { centerResult ->
@@ -69,7 +69,7 @@ class MainViewModel @Inject constructor(
             }
             CenterResult.Success
         }
-    }
+    }*/
 
 /*suspend fun getRoomList() = viewModelScope.launch {
     val list = centerRepositoryImpl.getCenterList()?.data
