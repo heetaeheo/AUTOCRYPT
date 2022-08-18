@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "CenterData")
 class CenterData (
-    @PrimaryKey(autoGenerate = false)@ColumnInfo(name = "id")val id: Int,
+    @PrimaryKey(autoGenerate = false)@ColumnInfo(name = "id")val id: String,
     @ColumnInfo(name = "centerName") val centerName : String,
     @ColumnInfo(name = "sido") val sido: String,
     @ColumnInfo(name = "sigungu")val sigungu:String,

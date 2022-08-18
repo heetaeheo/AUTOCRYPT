@@ -11,7 +11,7 @@ interface CallApi {
  @GET("15077586/v1/centers")
     suspend fun getData(
         @Query("serviceKey") serviceKey: String = Key.Decoding,
-        @Query("page") page: Int
+        @Query("page") page: Int?
     ): Response<CenterInfo>
 
 

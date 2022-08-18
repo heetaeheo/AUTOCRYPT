@@ -8,7 +8,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.*
+import androidx.paging.PagedList
+import com.example.autocrypt.data.Key
 import com.example.autocrypt.data.response.CenterDataResponse
+import com.example.autocrypt.util.PagingAdapter
 import com.example.autocrypt.viewModel.MainViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
@@ -21,6 +25,9 @@ import com.naver.maps.map.util.MarkerIcons
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
@@ -32,6 +39,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private val viewModel : MainViewModel by viewModels()
     private var markets = mutableListOf<Marker>()
     private lateinit var uiScope : CoroutineScope
+    private val adapter = PagingAdapter()
 
     companion object{
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
@@ -41,6 +49,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
     }
+
+    private fun observer(){
+        lifecycleScope.launch{
+            viewModel.getData().collectLatest {
+                adapter.submitData(it)
+            }
+        }
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +71,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         uiScope = CoroutineScope(Dispatchers.Main)
-
-        //runBlocking { viewModel.getRoomList() }
 
     }
 
@@ -85,7 +101,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         ActivityCompat.requestPermissions(this, PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
 
         Toast.makeText(this, "맵 초기화 완료", Toast.LENGTH_LONG).show()
-        runBlocking { viewModel.getCenterList() }
+
+        observer()
         updateMarker()
 
     }
@@ -93,7 +110,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun updateMarker() {
 
         deleteMarkers()
-
         var markers : List<CenterDataResponse> = viewModel.getCenterData()
         var temp = arrayListOf<Marker>()
         var i = 0

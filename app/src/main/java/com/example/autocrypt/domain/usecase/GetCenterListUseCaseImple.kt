@@ -1,4 +1,4 @@
-package com.example.autocrypt.domain.usecase
+/*package com.example.autocrypt.domain.usecase
 
 import com.example.autocrypt.CenterResult
 import com.example.autocrypt.data.repository.CenterRepository
@@ -44,4 +44,4 @@ class GetCenterListUseCaseImple @Inject constructor(
         return centerList
     }
 
-}
+}*/
