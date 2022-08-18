@@ -36,8 +36,6 @@ class DataFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         observer()
-
-
     }
 
     private fun initAdapter(){

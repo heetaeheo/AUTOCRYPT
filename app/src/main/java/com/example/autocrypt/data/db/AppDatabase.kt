@@ -23,6 +23,11 @@ abstract class AppDatabase: RoomDatabase() {
             }
             return DB_INSTANCE!!
         }
+
+        fun destroyInstance(){
+            DB_INSTANCE = null
+        }
     }
+
 
 }

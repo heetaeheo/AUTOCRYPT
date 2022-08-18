@@ -11,6 +11,8 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.example.autocrypt.data.Key
+import com.example.autocrypt.data.db.AppDatabase
+import com.example.autocrypt.data.db.CenterData
 import com.example.autocrypt.data.response.CenterDataResponse
 import com.example.autocrypt.databinding.ActivityMainBinding
 import com.example.autocrypt.util.PagingAdapter
@@ -42,6 +44,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var uiScope : CoroutineScope
     private val adapter = PagingAdapter()
     var fragment = DataFragment
+    private var centerList = listOf<CenterData>()
+
 
     companion object{
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
@@ -78,6 +82,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container,fragment.newInstance()).commit()
         }
+
 
     }
 

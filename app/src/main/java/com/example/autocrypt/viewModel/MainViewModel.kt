@@ -25,13 +25,13 @@ class MainViewModel @Inject constructor(
 
     private var centerList: MutableList<CenterDataResponse> = mutableListOf()
 
-    val dbList: LiveData<List<CenterData>> = roomRepository
 
-
-    /*   fun getAllRecords() : Flow<PagingData<CenterData>>{
+     /*fun getAllRecords() : Flow<PagingData<CenterData>>{
            return Pager(config = PagingConfig(pageSize = 10, maxSize = 100),
            pagingSourceFactory = {roomRepository.getAllRecords()}).flow.cachedIn(viewModelScope)
        }*/
+
+
 
 
     private var currentLiveData : Flow<PagingData<CenterDataResponse>>? = null
@@ -40,8 +40,13 @@ class MainViewModel @Inject constructor(
           val ResultFlowData : Flow<PagingData<CenterDataResponse>> =
           repository.getCenterDataByPaging().cachedIn(viewModelScope)
           currentLiveData = ResultFlowData
+
           return ResultFlowData
       }
+
+
+
+
 
 
    /* suspend fun getCenterList(apiKey: String, page: Int) = runBlocking {

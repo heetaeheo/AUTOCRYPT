@@ -6,11 +6,10 @@ import javax.inject.Inject
 
 class RoomRepository @Inject constructor(private val appDao: AppDao) {
 
-     val allData = appDao.getAllRecords()
 
+    val allData = appDao.getAllRecords()
 
-    @WorkerThread
-    suspend fun insertRecord(centerData: CenterData){
+     fun insertRecord(centerData: CenterData){
         appDao.insertRecord(centerData)
     }
 
