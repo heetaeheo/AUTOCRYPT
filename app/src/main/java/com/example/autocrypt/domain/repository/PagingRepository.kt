@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Repository @Inject constructor(
+class PagingRepository @Inject constructor(
     private val dataSource: CenterDataSource
 ) {
 

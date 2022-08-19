@@ -1,6 +1,5 @@
 package com.example.autocrypt.util
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,9 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.autocrypt.R
 import com.example.autocrypt.data.db.CenterDataEntity
-import com.example.autocrypt.data.response.CenterDataResponse
 import com.example.autocrypt.databinding.ViewholderCenterBinding
-import com.example.autocrypt.domain.repository.Repository
 import kotlinx.coroutines.runBlocking
 
 

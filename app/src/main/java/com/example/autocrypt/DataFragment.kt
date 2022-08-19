@@ -9,39 +9,34 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.autocrypt.data.db.CenterDataEntity
 import com.example.autocrypt.databinding.FragmentDataBinding
-import com.example.autocrypt.domain.repository.Repository
 import com.example.autocrypt.util.PagingAdapter
 import com.example.autocrypt.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DataFragment : Fragment() {
     private lateinit var binding : FragmentDataBinding
     private val viewModel: MainViewModel by viewModels()
-   // private val  dataRoomAdapter =  DataRoomAdapter()
     lateinit var adatper : PagingAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDataBinding.inflate(layoutInflater)
         return binding.root
     }
 
     @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
         adatper = PagingAdapter()
         observer()
         initAdapter()
-        //observer()
-       // initRecyclerView()
 
     }
 
@@ -54,14 +49,16 @@ class DataFragment : Fragment() {
             false
         )
     }
+    lateinit var markers : List<CenterDataEntity>
 
-
-    private fun observer(){
+    private fun observer() = with(viewModel){
         lifecycleScope.launch{
-            viewModel.getData().collectLatest {
+            getData().collectLatest {
                 adatper.submitData(it)
             }
+            getRoomData()
         }
+
     }
 
     companion object {
@@ -69,7 +66,6 @@ class DataFragment : Fragment() {
 
         fun newInstance(): DataFragment{
             return DataFragment().apply {
-
             }
         }
     }

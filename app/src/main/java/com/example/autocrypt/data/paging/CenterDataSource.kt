@@ -24,7 +24,6 @@ class CenterDataSource @Inject constructor(
                 ?: state.closestPageToPosition(anchorPosition)?.prevKey?.minus(1)
         }
     }
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CenterDataEntity> {
         val page = params.key ?:PAGE_START_INDEX
         val apiKey = Key.Decoding
@@ -39,7 +38,8 @@ class CenterDataSource @Inject constructor(
             val start = (page.toLong() - 1) * 10 + 1
 
             LoadResult.Page(
-                data = appDao.getAllRecords(start, start + 9),
+                data = appDao.getRangeRecords(start, start + 9),
+//                data = appDao.getAllRecords(),
                 prevKey = if(page == 1) null else page.minus(1),
                 nextKey = if(page == 10) null else page.plus(1)
             )

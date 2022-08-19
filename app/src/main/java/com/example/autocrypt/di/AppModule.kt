@@ -1,6 +1,7 @@
 package com.example.autocrypt.di
 
 import android.app.Application
+import androidx.room.Room
 import com.example.autocrypt.data.db.AppDao
 import com.example.autocrypt.data.db.AppDatabase
 import dagger.Module
@@ -15,8 +16,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun getAppDatabase(context: Application): AppDatabase{
-        return AppDatabase.getAppDbInstance(context)
+    fun getAppDatabase(app: Application): AppDatabase {
+        return Room.databaseBuilder(
+            app, AppDatabase::class.java, AppDatabase.DB_NAME
+        ).build()
     }
 
     @Singleton
