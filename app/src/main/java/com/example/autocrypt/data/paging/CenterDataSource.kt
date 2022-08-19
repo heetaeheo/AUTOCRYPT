@@ -6,9 +6,7 @@ import androidx.paging.PagingState
 import com.example.autocrypt.data.Key
 import com.example.autocrypt.data.db.AppDao
 import com.example.autocrypt.data.db.CenterDataEntity
-import com.example.autocrypt.data.entity.CenterEntity
 import com.example.autocrypt.data.network.CallApi
-import com.example.autocrypt.data.response.CenterDataResponse
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -34,12 +32,10 @@ class CenterDataSource @Inject constructor(
             val response = callApi.getData(apiKey,page)
 
             if (response.isSuccessful) {
-//                appDao.deleteRecordAll()
                 Log.d("TAG", "retrofit: ${response.body()!!.data}")
-                appDao.insertRecords(response.body()!!.data.map { it.toCenterData() })
+                appDao.insertRecords(response.body()!!.data.map { it.toCenterDataEntity() })
             }
 
-//            Log.d("TAG", "load: ${appDao.getAllRecords()}")
             val start = (page.toLong() - 1) * 10 + 1
 
             LoadResult.Page(

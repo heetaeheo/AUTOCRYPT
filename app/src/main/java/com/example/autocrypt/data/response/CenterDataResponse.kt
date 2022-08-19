@@ -36,8 +36,7 @@ data class CenterDataResponse(
     @SerializedName("phoneNumber")
     val phoneNumber: String
 ) : Parcelable {
-    fun toCenterData() = CenterDataEntity(
-//        uid = 0,
+    fun toCenterDataEntity() = CenterDataEntity(
         id = id,
         centerName = centerName,
         sido = sido,

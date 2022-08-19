@@ -14,7 +14,7 @@ import java.util.concurrent.Flow
 
 @Entity(tableName = "CenterData")
 data class CenterDataEntity (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
      val id: Long,
     val centerName: String,
     val sido: String,
