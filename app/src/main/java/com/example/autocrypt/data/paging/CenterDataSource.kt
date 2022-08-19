@@ -1,42 +1,51 @@
 package com.example.autocrypt.data.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.autocrypt.data.Key
+import com.example.autocrypt.data.db.AppDao
+import com.example.autocrypt.data.db.CenterDataEntity
+import com.example.autocrypt.data.entity.CenterEntity
 import com.example.autocrypt.data.network.CallApi
-import com.example.autocrypt.data.repository.CenterRepository
 import com.example.autocrypt.data.response.CenterDataResponse
-import com.example.autocrypt.data.response.CenterInfo
-import com.example.autocrypt.di.annotation.IoDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 private const val PAGE_START_INDEX =1
 
-class CenterDataSource(
+class CenterDataSource @Inject constructor(
     private val callApi: CallApi,
-): PagingSource<Int,CenterDataResponse>(){
+    private val appDao: AppDao
+): PagingSource<Int, CenterDataEntity>(){
 
-    override fun getRefreshKey(state: PagingState<Int, CenterDataResponse>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, CenterDataEntity>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.nextKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.prevKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CenterDataResponse> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CenterDataEntity> {
         val page = params.key ?:PAGE_START_INDEX
         val apiKey = Key.Decoding
         return try {
             val response = callApi.getData(apiKey,page)
+
+            if (response.isSuccessful) {
+//                appDao.deleteRecordAll()
+                Log.d("TAG", "retrofit: ${response.body()!!.data}")
+                appDao.insertRecords(response.body()!!.data.map { it.toCenterData() })
+            }
+
+//            Log.d("TAG", "load: ${appDao.getAllRecords()}")
+            val start = (page.toLong() - 1) * 10 + 1
+
             LoadResult.Page(
-                data = response.body()!!.data,
-                prevKey = if(page == PAGE_START_INDEX) null else page.minus(1),
-                nextKey = if(!response.isSuccessful) null else page.plus(1)
+                data = appDao.getAllRecords(start, start + 9),
+                prevKey = if(page == 1) null else page.minus(1),
+                nextKey = if(page == 10) null else page.plus(1)
             )
         } catch (exception: IOException){
             return LoadResult.Error(exception)

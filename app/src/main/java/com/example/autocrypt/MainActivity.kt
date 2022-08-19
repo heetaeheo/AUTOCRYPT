@@ -1,21 +1,15 @@
 package com.example.autocrypt
 
 import android.Manifest
-import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.*
-import androidx.paging.PagedList
-import com.example.autocrypt.data.Key
-import com.example.autocrypt.data.db.AppDatabase
-import com.example.autocrypt.data.db.CenterData
+import com.example.autocrypt.data.db.CenterDataEntity
 import com.example.autocrypt.data.response.CenterDataResponse
 import com.example.autocrypt.databinding.ActivityMainBinding
-import com.example.autocrypt.util.PagingAdapter
 import com.example.autocrypt.viewModel.MainViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
@@ -28,13 +22,9 @@ import com.naver.maps.map.util.MarkerIcons
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+class MainActivity  : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var naverMap : NaverMap
@@ -42,9 +32,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private val viewModel : MainViewModel by viewModels()
     private var markets = mutableListOf<Marker>()
     private lateinit var uiScope : CoroutineScope
-    private val adapter = PagingAdapter()
     var fragment = DataFragment
-    private var centerList = listOf<CenterData>()
+    private var centerList = listOf<CenterDataEntity>()
 
 
     companion object{
@@ -56,14 +45,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         )
     }
 
-    private fun observer(){
+    /*private fun observer(){
         lifecycleScope.launch{
             viewModel.getData().collectLatest {
                 adapter.submitData(it)
             }
         }
-    }
-
+    }*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,31 +103,31 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Toast.makeText(this, "맵 초기화 완료", Toast.LENGTH_LONG).show()
 
         //observer()
-        updateMarker()
+//        updateMarker()
 
     }
 
-    private fun updateMarker() {
-
-        deleteMarkers()
-        var markers : List<CenterDataResponse> = viewModel.getCenterData()
-        var temp = arrayListOf<Marker>()
-        var i = 0
-
-        markers?.let {
-            repeat(markers.size){
-                temp += Marker().apply {
-                    position = LatLng(markers[i].lat.toDouble(),markers[i].lng.toDouble())
-                    icon = MarkerIcons.BLACK
-                    tag = markers[i].centerName
-                    zIndex = i
-                }
-                i++
-            }
-            markets = temp
-            searchAround()
-        }
-    }
+//    private fun updateMarker() {
+//
+//        deleteMarkers()
+//        var markers : List<CenterDataResponse> = viewModel.getCenterData()
+//        var temp = arrayListOf<Marker>()
+//        var i = 0
+//
+//        markers?.let {
+//            repeat(markers.size){
+//                temp += Marker().apply {
+//                    position = LatLng(markers[i].lat.toDouble(),markers[i].lng.toDouble())
+//                    icon = MarkerIcons.BLACK
+//                    tag = markers[i].centerName
+//                    zIndex = i
+//                }
+//                i++
+//            }
+//            markets = temp
+//            searchAround()
+//        }
+//    }
 
     private fun searchAround(){
 

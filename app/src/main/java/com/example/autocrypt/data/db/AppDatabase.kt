@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [CenterData::class], version = 1, exportSchema = false )
+@Database(entities = [CenterDataEntity::class], version = 1, exportSchema = false )
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun getAppDao() : AppDao

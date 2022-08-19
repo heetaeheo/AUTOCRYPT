@@ -1,13 +1,14 @@
 package com.example.autocrypt.data.response
 
 import android.os.Parcelable
+import com.example.autocrypt.data.db.CenterDataEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CenterDataResponse(
     @SerializedName("id")
-    val id: Int,
+    val id: Long,
     @SerializedName("centerName")
     val centerName: String,
     @SerializedName("sido")
@@ -34,4 +35,22 @@ data class CenterDataResponse(
     val org: String,
     @SerializedName("phoneNumber")
     val phoneNumber: String
-) : Parcelable
+) : Parcelable {
+    fun toCenterData() = CenterDataEntity(
+//        uid = 0,
+        id = id,
+        centerName = centerName,
+        sido = sido,
+        sigungu = sigungu,
+        facilityName = facilityName,
+        zipCode = zipCode,
+        address = address,
+        lat = lat,
+        lng = lng,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        centerType = centerType,
+        org = org,
+        phoneNumber = phoneNumber,
+    )
+}

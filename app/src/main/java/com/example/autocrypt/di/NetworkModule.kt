@@ -39,7 +39,6 @@ object NetworkModule {
         return GsonConverterFactory.create()
     }
 
-
     @Provides
     @Singleton
     fun provideCenterRetrofit(
@@ -52,6 +51,8 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
     }
+
+
 
     @Provides
     @Singleton
