@@ -20,7 +20,7 @@
             android:id="@+id/progressBar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:indeterminateTint="@color/black"
+            android:indeterminate="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +45,9 @@
             android:id="@+id/centerInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:background="@color/white"
-            android:text="@{center.toString()}"
+            android:text='@{"centerName : "+ center.centerName+ "\n" + "facilityName : "+center.facilityName+ "\n" + "address : " +center.address+ "\n" + "phoneNumber : " +center.phoneNumber+ "\n" + "updatedAt : "+center.updatedAt }'
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent" />
 

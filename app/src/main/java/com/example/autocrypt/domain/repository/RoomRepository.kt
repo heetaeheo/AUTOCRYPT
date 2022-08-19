@@ -15,8 +15,6 @@ class RoomRepository @Inject constructor(
     private var data : List<CenterDataEntity> = mutableListOf()
 
     suspend fun getRoomAllData() = withContext(Dispatchers.IO){
-//        data = appDao.getAllRecords()
-//        resultState.success
         appDao.getAllRecords()
     }
 
@@ -26,6 +24,5 @@ class RoomRepository @Inject constructor(
 }
 
 sealed class resultState() {
-   // data class Success(val data : List<CenterDataEntity>) : resultState()
     object success : resultState()
 }

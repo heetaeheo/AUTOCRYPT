@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.autocrypt.data.db.CenterDataEntity
-import com.example.autocrypt.data.response.CenterDataResponse
 import com.example.autocrypt.databinding.ActivityMainBinding
 import com.example.autocrypt.util.PagingAdapter
 import com.example.autocrypt.viewModel.MainViewModel
@@ -31,11 +30,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
     private val viewModel: MainViewModel by viewModels()
-    private var markets = mutableListOf<Marker>()
+    private var markers = mutableListOf<Marker>()
     private lateinit var uiScope: CoroutineScope
-    var fragment = DataFragment
     lateinit var adatper: PagingAdapter
-    lateinit var markers: List<CenterDataEntity>
+    lateinit var markerEntity: List<CenterDataEntity>
     private var infoWindow : InfoWindow? = null
 
 
@@ -94,7 +92,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
             binding.moveFragment.setOnClickListener {
-               //  locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
                  naverMap.locationSource = locationSource
                  mapFragment.getMapAsync(this)
             }
@@ -128,32 +125,30 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
             ActivityCompat.requestPermissions(this, PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
 
-            Toast.makeText(this, "맵 초기화 완료", Toast.LENGTH_LONG).show()
-
             updateMarker()
         }
 
         private fun updateMarker() {
             deleteMarkers()
             var temp = arrayListOf<Marker>()
-            markers = viewModel.getRoomList()!!
+            markerEntity = viewModel.getRoomList()!!
             var i = 0
-            markers?.let {
-                repeat(markers.size) {
+            markerEntity?.let {
+                repeat(markerEntity.size) {
                     temp += Marker().apply {
-                        position = LatLng(markers[i].lat.toDouble(), markers[i].lng.toDouble())
-                        if(markers[i].centerType == "중앙/권역"){
+                        position = LatLng(markerEntity[i].lat.toDouble(), markerEntity[i].lng.toDouble())
+                        if(markerEntity[i].centerType == "중앙/권역"){
                             icon = MarkerIcons.BLACK
                         }
                         else {
                             icon = MarkerIcons.RED
                         }
-                        tag = markers[i]
+                        tag = markerEntity[i]
                         zIndex = i
                     }
                     i++
                 }
-                markets = temp
+                markers = temp
                 searchAround()
                 setMarkerListener()
             }
@@ -161,16 +156,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         private fun searchAround() {
             deleteMarkers()
-            for (market in markets) {
+            for (market in markers) {
                 market.map = naverMap
             }
 
         }
 
         fun deleteMarkers() {
-            if (markets.isNullOrEmpty())
+            if (markers.isNullOrEmpty())
                 return
-            for (marker in markets) {
+            for (marker in markers) {
                 marker.map = null
             }
         }
@@ -178,11 +173,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun updateProgress(start: Long) = lifecycleScope.launch(Dispatchers.Main) {
         binding.progressBar.visibility = View.VISIBLE
         binding.progressBar.progress = 0
+        binding.progressBar.max = 100
 
         var progress: Double
 
         do {
-            progress = (System.currentTimeMillis() - start) * 0.005
+            progress = (System.currentTimeMillis() - start) * 0.05
 
             if (progress >= 80 && viewModel.centers.value is MainState.Loading) {
                 binding.progressBar.progress = 80
@@ -193,7 +189,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setMarkerListener(){
-        for(marker in markets){
+        for(marker in markers){
 
             var tempinfoWindow = InfoWindow()
             tempinfoWindow?.adapter = object : InfoWindow.DefaultTextAdapter(this) {
@@ -205,7 +201,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             marker.setOnClickListener {
                 if(tempinfoWindow?.marker != null){
                     tempinfoWindow?.close()
-
+                    binding.centerInfo.visibility = View.GONE
                 }else{
                     tempinfoWindow?.open(marker)
                     val cameraUpdate = CameraUpdate.scrollTo(marker.position)
