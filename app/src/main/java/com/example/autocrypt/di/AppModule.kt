@@ -28,21 +28,4 @@ object AppModule {
         return appDatabase.getAppDao()
     }
 
-//    @Provides
-//    @Singleton
-//    fun providesRemoteDao(database: Database) =
-//        database.remoteKeyDao()
-//
-//    @Provides
-//    @Singleton
-//    fun providesDatabase(context:Application) =
-//        Room.databaseBuilder(context,Database::class.java,"Database")
-//            .build()
-//
-//    @Provides
-//    @Singleton
-//    fun providesDao(database: Database) =
-//        database.getDao()
-//
-
 }

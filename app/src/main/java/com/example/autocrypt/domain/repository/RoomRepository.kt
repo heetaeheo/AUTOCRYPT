@@ -18,11 +18,6 @@ class RoomRepository @Inject constructor(
         appDao.getAllRecords()
     }
 
-    suspend fun  getList() : List<CenterDataEntity> {
-        return data
-    }
+
 }
 
-sealed class resultState() {
-    object success : resultState()
-}

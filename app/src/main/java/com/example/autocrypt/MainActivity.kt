@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
             binding.moveFragment.setOnClickListener {
-                 naverMap.locationSource = locationSource
+                 //naverMap.locationSource = locationSource
                  mapFragment.getMapAsync(this)
             }
         }
@@ -102,15 +102,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             permissions: Array<String>,
             grantResults: IntArray
         ) {
-            Log.d("onRequest", "onRequestPermissionsResult")
-
             if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
-                if (!locationSource.isActivated) { // 권한 거부됨
-                    Log.d("권한 거부", "권한 거부됨")
+                if (!locationSource.isActivated) {
                     naverMap.locationTrackingMode = LocationTrackingMode.None
                 } else {
-                    Log.d("권한 승인", "권한 승인됨")
-                    naverMap.locationTrackingMode = LocationTrackingMode.Follow // 현위치 버튼 컨트롤 활성
+                    naverMap.locationTrackingMode = LocationTrackingMode.Follow
                 }
                 return
             }
