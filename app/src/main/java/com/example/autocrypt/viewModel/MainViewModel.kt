@@ -1,15 +1,14 @@
 package com.example.autocrypt.viewModel
 
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.*
 import com.example.autocrypt.MainState
-import com.example.autocrypt.data.db.CenterDataEntity
+import com.example.autocrypt.data.entity.CenterDataEntity
 import com.example.autocrypt.domain.repository.PagingRepository
 import com.example.autocrypt.domain.repository.RoomRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +33,7 @@ class MainViewModel @Inject constructor(
     }
 
     @Suppress("CAST_NEVER_SUCCEEDS")
-      fun getRoomData() = viewModelScope.launch{
+      fun getRoomData() = viewModelScope.async {
           _centers.value = MainState.Success(roomRepository.getRoomAllData())
      }
 

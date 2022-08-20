@@ -1,4 +1,4 @@
-package com.example.autocrypt.data.db
+package com.example.autocrypt.data.entity
 
 
 import androidx.room.Entity

@@ -1,7 +1,7 @@
 package com.example.autocrypt.data.response
 
 import android.os.Parcelable
-import com.example.autocrypt.data.db.CenterDataEntity
+import com.example.autocrypt.data.entity.CenterDataEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

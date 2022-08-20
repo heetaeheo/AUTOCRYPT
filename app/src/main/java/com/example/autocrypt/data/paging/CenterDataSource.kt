@@ -5,7 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.autocrypt.data.Key
 import com.example.autocrypt.data.db.AppDao
-import com.example.autocrypt.data.db.CenterDataEntity
+import com.example.autocrypt.data.entity.CenterDataEntity
 import com.example.autocrypt.data.network.CallApi
 import retrofit2.HttpException
 import java.io.IOException

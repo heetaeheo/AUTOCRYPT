@@ -1,6 +1,7 @@
 package com.example.autocrypt.data.db
 
 import androidx.room.*
+import com.example.autocrypt.data.entity.CenterDataEntity
 
 @Dao
 interface AppDao {

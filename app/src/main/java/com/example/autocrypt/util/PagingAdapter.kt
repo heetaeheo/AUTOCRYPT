@@ -7,7 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.autocrypt.R
-import com.example.autocrypt.data.db.CenterDataEntity
+import com.example.autocrypt.data.entity.CenterDataEntity
 import com.example.autocrypt.databinding.ViewholderCenterBinding
 import kotlinx.coroutines.runBlocking
 
@@ -19,19 +19,8 @@ class PagingAdapter() :
         private val binding: ViewholderCenterBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: CenterDataEntity) = runBlocking {
-            with(binding) {
+        fun bind(item: CenterDataEntity) = {
 
-                id.text = item.id.toString()
-                centerName.text = item.centerName.toString()
-                address.text = item.address.toString()
-                lat.text = item.lat.toString()
-                lng.text = item.lng.toString()
-                updatedAt.text = item.updatedAt.toString()
-                facilityName.text = item.facilityName.toString()
-
-                binding.executePendingBindings()
-            }
         }
 
 
