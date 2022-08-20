@@ -47,19 +47,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun submitData() = with(viewModel) {
-        lifecycleScope.async(Dispatchers.Main){
+        lifecycleScope.launch(Dispatchers.Main){
             getData().collectLatest {
                 adatper.submitData(it)
             }
-        }.onAwait
+        }
     }
 
-        private fun observer() = with(viewModel) {
-            lifecycleScope.launch(Dispatchers.Main) {
-            }
-        }
-
-        private fun observerData() {
+        private fun observerData(){
             viewModel.centers.observe(this@MainActivity){
                 when(it){
                     is MainState.Loading -> {
@@ -67,7 +62,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         updateProgress(System.currentTimeMillis())
                     }
                     is MainState.Success -> {
-//                        viewModel.getRoomList()
+                        binding.progressBar.visibility = View.GONE
+                        binding.fragmentContainer.visibility = View.GONE
                         Log.d("getRoomList()", viewModel.getRoomList()?.size.toString())
                     }
                 }
@@ -166,15 +162,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-    private fun updateProgress(start: Long) = lifecycleScope.launch(Dispatchers.Main) {
+    private fun updateProgress(start: Long) = lifecycleScope.launch(Dispatchers.IO)  {
         binding.progressBar.visibility = View.VISIBLE
+        binding.fragmentContainer.visibility = View.VISIBLE
         binding.progressBar.progress = 0
         binding.progressBar.max = 100
 
         var progress: Double
 
         do {
-            progress = (System.currentTimeMillis() - start) * 0.05
+            progress = (System.currentTimeMillis() - start) * 0.005
 
             if (progress >= 80 && viewModel.centers.value is MainState.Loading) {
                 binding.progressBar.progress = 80
@@ -182,6 +179,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 binding.progressBar.progress = progress.toInt()
             }
         } while(progress < 100)
+
     }
 
     private fun setMarkerListener(){

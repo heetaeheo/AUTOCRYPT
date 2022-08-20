@@ -35,7 +35,6 @@ class MainViewModel @Inject constructor(
 
     @Suppress("CAST_NEVER_SUCCEEDS")
       fun getRoomData() = viewModelScope.launch{
-
           _centers.value = MainState.Success(roomRepository.getRoomAllData())
      }
 

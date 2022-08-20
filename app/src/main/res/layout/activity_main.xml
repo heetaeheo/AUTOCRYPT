@@ -16,10 +16,16 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:progress="0"
             android:visibility="visible"
             android:indeterminate="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,6 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/map_fragment"
             />
+        </FrameLayout>
 
         <fragment
             android:id="@+id/map_fragment"

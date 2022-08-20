@@ -12,22 +12,6 @@ abstract class AppDatabase: RoomDatabase() {
 
     companion object{
         const val DB_NAME = "MYDB"
-//        private var DB_INSTANCE: AppDatabase? =null
-//
-//        fun getAppDbInstance(context: Context): AppDatabase{
-//            if(DB_INSTANCE == null){
-//                DB_INSTANCE = Room.databaseBuilder<AppDatabase>(
-//                    context.applicationContext, AppDatabase::class.java,"MYDB"
-//                )
-//                    .allowMainThreadQueries()
-//                    .build()
-//            }
-//            return DB_INSTANCE!!
-//        }
-//
-//        fun destroyInstance(){
-//            DB_INSTANCE = null
-//        }
     }
 
 
