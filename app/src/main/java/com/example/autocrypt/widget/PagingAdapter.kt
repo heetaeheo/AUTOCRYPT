@@ -1,4 +1,4 @@
-package com.example.autocrypt.util
+package com.example.autocrypt.widget
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.autocrypt.R
 import com.example.autocrypt.data.entity.CenterDataEntity
 import com.example.autocrypt.databinding.ViewholderCenterBinding
-import kotlinx.coroutines.runBlocking
 
 
 class PagingAdapter() :

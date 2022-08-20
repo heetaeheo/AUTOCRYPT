@@ -1,4 +1,4 @@
-package com.example.autocrypt.domain.repository
+package com.example.autocrypt.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -20,11 +20,5 @@ class PagingRepository @Inject constructor(
             pagingSourceFactory = { dataSource }
         ).flow
     }
-
-
-
-
-
-
 
 }

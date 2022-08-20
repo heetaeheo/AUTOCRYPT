@@ -1,7 +1,7 @@
-package com.example.autocrypt.di
+package com.example.autocrypt.di.module
 
 import com.example.autocrypt.BuildConfig
-import com.example.autocrypt.data.Url
+import com.example.autocrypt.data.url.Url
 import com.example.autocrypt.data.network.CallApi
 import dagger.Module
 import dagger.Provides

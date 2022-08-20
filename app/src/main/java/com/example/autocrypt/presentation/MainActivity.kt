@@ -1,4 +1,4 @@
-package com.example.autocrypt
+package com.example.autocrypt.presentation
 
 import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
@@ -7,10 +7,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.autocrypt.R
 import com.example.autocrypt.data.entity.CenterDataEntity
 import com.example.autocrypt.databinding.ActivityMainBinding
-import com.example.autocrypt.util.PagingAdapter
-import com.example.autocrypt.viewModel.MainViewModel
+import com.example.autocrypt.widget.PagingAdapter
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow

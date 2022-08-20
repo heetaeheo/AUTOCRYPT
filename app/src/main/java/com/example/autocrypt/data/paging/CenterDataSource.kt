@@ -3,8 +3,8 @@ package com.example.autocrypt.data.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.autocrypt.data.Key
-import com.example.autocrypt.data.db.AppDao
+import com.example.autocrypt.data.url.Key
+import com.example.autocrypt.data.db.dao.AppDao
 import com.example.autocrypt.data.entity.CenterDataEntity
 import com.example.autocrypt.data.network.CallApi
 import retrofit2.HttpException
@@ -39,7 +39,6 @@ class CenterDataSource @Inject constructor(
 
             LoadResult.Page(
                 data = appDao.getRangeRecords(start, start + 9),
-//                data = appDao.getAllRecords(),
                 prevKey = if(page == 1) null else page.minus(1),
                 nextKey = if(page == 10) null else page.plus(1)
             )

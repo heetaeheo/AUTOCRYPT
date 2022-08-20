@@ -1,4 +1,4 @@
-package com.example.autocrypt.di
+package com.example.autocrypt.di.module
 
 import com.example.autocrypt.di.annotation.IoDispatcher
 import dagger.Module

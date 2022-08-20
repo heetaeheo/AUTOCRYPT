@@ -1,8 +1,8 @@
-package com.example.autocrypt.di
+package com.example.autocrypt.di.module
 
 import android.app.Application
 import androidx.room.Room
-import com.example.autocrypt.data.db.AppDao
+import com.example.autocrypt.data.db.dao.AppDao
 import com.example.autocrypt.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides

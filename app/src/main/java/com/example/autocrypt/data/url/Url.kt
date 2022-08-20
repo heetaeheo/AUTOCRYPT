@@ -1,4 +1,4 @@
-package com.example.autocrypt.data
+package com.example.autocrypt.data.url
 
 object Url {
 

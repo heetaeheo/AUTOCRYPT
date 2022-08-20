@@ -1,4 +1,4 @@
-package com.example.autocrypt
+package com.example.autocrypt.presentation
 
 import com.example.autocrypt.data.entity.CenterDataEntity
 

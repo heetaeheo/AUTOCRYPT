@@ -1,11 +1,10 @@
-package com.example.autocrypt.viewModel
+package com.example.autocrypt.presentation
 
 import androidx.lifecycle.*
 import androidx.paging.*
-import com.example.autocrypt.MainState
 import com.example.autocrypt.data.entity.CenterDataEntity
-import com.example.autocrypt.domain.repository.PagingRepository
-import com.example.autocrypt.domain.repository.RoomRepository
+import com.example.autocrypt.data.repository.PagingRepository
+import com.example.autocrypt.data.repository.RoomRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
@@ -16,8 +15,6 @@ class MainViewModel @Inject constructor(
     private val pagingRepository: PagingRepository,
     private val roomRepository: RoomRepository
 ) : ViewModel() {
-
-    private var centerList: MutableList<CenterDataEntity> = mutableListOf()
 
     private val _centers = MutableLiveData<MainState>(MainState.Loading)
     val centers: LiveData<MainState> get() = _centers
