@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             mapFragment.getMapAsync(this)
         }
 
+
+
     }
 
     override fun onRequestPermissionsResult(

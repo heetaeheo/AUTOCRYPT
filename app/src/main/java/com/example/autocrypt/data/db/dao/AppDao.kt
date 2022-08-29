@@ -7,7 +7,7 @@ import com.example.autocrypt.data.entity.CenterDataEntity
 interface AppDao {
 
     @Query("SELECT * FROM CenterData WHERE id BETWEEN :start AND :end")
-    suspend fun getRangeRecords(start: Long, end: Long): List<CenterDataEntity>
+    suspend fun getRangeRecords(start: Int, end: Int): List<CenterDataEntity>
 
     @Query("SELECT * FROM CenterData")
     suspend fun getAllRecords(): List<CenterDataEntity>

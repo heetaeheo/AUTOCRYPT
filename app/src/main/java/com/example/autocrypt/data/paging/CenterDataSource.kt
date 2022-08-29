@@ -20,8 +20,8 @@ class CenterDataSource @Inject constructor(
 
     override fun getRefreshKey(state: PagingState<Int, CenterDataEntity>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.nextKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.prevKey?.minus(1)
+            state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
         }
     }
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CenterDataEntity> {
@@ -31,12 +31,13 @@ class CenterDataSource @Inject constructor(
             val response = callApi.getData(apiKey,page)
 
             if (response.isSuccessful) {
-                Log.d("TAG", "retrofit: ${response.body()!!.data}")
+                //Log.d("TAG", "retrofit: ${response.body()!!.data}")
                 appDao.insertRecords(response.body()!!.data.map { it.toCenterDataEntity() })
             }
 
-            val start = (page.toLong() - 1) * 10 + 1
-
+            val start = (page - 1) * 10 + 1
+            //Log.d("TAG","start:${start}")
+            //Log.d("TAG","page:${page}")
             LoadResult.Page(
                 data = appDao.getRangeRecords(start, start + 9),
                 prevKey = if(page == 1) null else page.minus(1),
